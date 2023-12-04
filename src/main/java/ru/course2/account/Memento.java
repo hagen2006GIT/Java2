@@ -1,17 +1,20 @@
 package ru.course2.account;
 
 public class Memento {
-    private final Account state;
-    private final String name;
-
-    public Memento(Account state) {
+    private final StoredObject state;
+    public Memento(StoredObject state) {
         this.state = state;
-        this.name = state.getName();
     }
-    public String getName() {
-        return name;
-    }
-    public Account getState() {
+
+    public StoredObject getState() {
         return state;
     }
+
+    @Override
+    public String toString() {
+        return "Memento{" +
+                "state=" + state +
+                '}';
+    }
 }
+

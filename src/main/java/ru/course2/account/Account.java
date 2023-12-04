@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account implements Cloneable{
+    private StoredObject state;
     private String name;
     private List<CurrencyStorage> listCur=new ArrayList<>();
-    public List<Account> undoStack=new ArrayList<>();
 
     public List<CurrencyStorage> getListCur() {
         return listCur;
@@ -20,20 +20,6 @@ public class Account implements Cloneable{
         }
         return null;
     }
-    public void editCurrencyList(Currency cur,Integer saldo) throws IndexOutOfBoundsException, CloneNotSupportedException {
-        CurrencyStorage cs=new CurrencyStorage();
-        if(saldo<0){
-            System.out.println("Parameter 'Saldo' may be positive only");
-            throw new IndexOutOfBoundsException();
-        }
-        cs=findCurInList(cur,this.listCur);
-        if(cs!=null) {
-            cs.setSaldo(saldo);
-        } else {
-            this.listCur.add(new CurrencyStorage(cur,saldo));
-        }
-        savePoint(this);
-    }
     @Override
     protected Account clone() throws CloneNotSupportedException {
         Account account=(Account) super.clone();
@@ -45,29 +31,25 @@ public class Account implements Cloneable{
         }
         return account;
     }
+    public Memento saveState() {
+        return new Memento(state);
+    }
+    public void restoreState(Memento memento) {
+        state=memento.getState();
+    }
 
-    private void savePoint(Account accountIn) throws CloneNotSupportedException {
-        undoStack.add(accountIn.clone());
-/*        account.listCur=new ArrayList<>();
-        CurrencyStorage tmp=new CurrencyStorage();
-        for (CurrencyStorage cs:accountIn.listCur) {
-            tmp=cs.clone();
-            account.listCur.add(tmp);
-        }*/
+    public void restoreSaved(Memento memento) throws CloneNotSupportedException {
+        this.name=memento.getState().getName();
+        this.listCur=memento.getState().getLstCur();
+        setState();
     }
-    public Account undo() throws IllegalAccessError {
-        if(undoStack.size()>1) {
-            Account tmpAccount=(Account) undoStack.get(undoStack.size()-2);
-//            Account tmpAccount=(Account) undoStack.get(undoStack.size()-2);
-//            this.name=tmpAccount.getName();
-//            this.listCur=tmpAccount.getListCur();
-            undoStack.remove(undoStack.size()-1);
-            return tmpAccount;
-        } else {
-            System.out.println("There were no changes");
-            throw new IllegalAccessError();
-        }
+    public void setState() throws CloneNotSupportedException {
+        this.state=new StoredObject(this.clone().getName(),this.clone().listCur);
     }
+    public StoredObject getState() {
+        return state;
+    }
+
     @Override
     public String toString() {
         return "Account{"
@@ -82,11 +64,25 @@ public class Account implements Cloneable{
 
     public void setName(String name) throws CloneNotSupportedException{
         this.name=name;
-        savePoint((Account)this.clone());
+        setState();
+    }
+    public void setCurrencyList(Currency cur, Integer saldo) throws IndexOutOfBoundsException, CloneNotSupportedException {
+        CurrencyStorage cs=new CurrencyStorage();
+        if(saldo<0){
+            System.out.println("Parameter 'Saldo' may be positive only");
+            throw new IndexOutOfBoundsException();
+        }
+        cs=findCurInList(cur,this.listCur);
+        if(cs!=null) {
+            cs.setSaldo(saldo);
+        } else {
+            this.listCur.add(new CurrencyStorage(cur,saldo));
+        }
+        setState();
     }
     public Account(String name) throws CloneNotSupportedException{
         this.name=name;
-        savePoint(this);
+        setState();
     }
 }
 enum Currency {
