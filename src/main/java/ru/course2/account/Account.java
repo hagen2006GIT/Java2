@@ -13,10 +13,6 @@ public class Account implements Cloneable {
         account.lstCur.putAll(this.lstCur);
         return account;
     }
-    public void restoreSaved(Memento memento) throws CloneNotSupportedException {
-        this.name=memento.getState().getName();
-        this.lstCur=memento.getState().getLstCur();
-    }
     @Override
     public String toString() {
         return "Account{"
