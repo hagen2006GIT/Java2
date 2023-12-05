@@ -1,26 +1,28 @@
 package ru.course2.account;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class Caretaker implements Saveable{
-    private final Stack<Memento> mementoStack=new Stack<>();
-    public void saveState(Memento memento) {
+public class Caretaker implements Saveable2 {
+    private final Deque<Memento2> mementoStack=new ArrayDeque<>();
+    public void saveState(Memento2 memento) {
         mementoStack.push(memento);
     }
-    public Memento restoreState() throws IllegalAccessError {
-        if (mementoStack.empty()) {
+    public Memento2 restoreState() throws IllegalAccessError {
+        if (mementoStack.isEmpty()) {
             System.out.println("There were no changes");
             throw new IllegalAccessError();
         }
         return mementoStack.pop();
     }
-    public void save(Memento memento){
+    public void save(Memento2 memento){
         saveState(memento);
     }
-    public Memento undo() {
-        return restoreState();
+    @Override
+    public Memento2 restore() {
+        return null;
     }
-    public Memento restore() {
+    public Memento2 undo() {
         return restoreState();
     }
 }
