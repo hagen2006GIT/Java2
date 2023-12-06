@@ -3,16 +3,9 @@ package ru.course2.account;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Account implements Cloneable {
+public class Account {
     private String name;
     private Map<Currency,Integer> lstCur = new HashMap<>();
-    @Override
-    protected Account clone() throws CloneNotSupportedException {
-        Account account=(Account) super.clone();
-        account.lstCur=new HashMap<>();
-        account.lstCur.putAll(this.lstCur);
-        return account;
-    }
     @Override
     public String toString() {
         return "Account{"
@@ -26,17 +19,17 @@ public class Account implements Cloneable {
     public Map<Currency,Integer> getLstCur() {
         return lstCur;
     }
-    public void setName(String name) throws CloneNotSupportedException{
+    public void setName(String name) {
         this.name=name;
     }
-    public void setCurrencyMap(Currency cur, Integer saldo) throws IndexOutOfBoundsException, CloneNotSupportedException {
+    public void setCurrencyMap(Currency cur, Integer saldo) throws IndexOutOfBoundsException {
         if(saldo<0){
             System.out.println("Parameter 'Saldo' may be positive only");
             throw new IndexOutOfBoundsException();
         }
         this.lstCur.put(cur,saldo);
     }
-    public Account(String name) throws CloneNotSupportedException{
+    public Account(String name) {
         this.name=name;
     }
     public Memento2 save(String state) {
@@ -45,7 +38,7 @@ public class Account implements Cloneable {
         mem.setLstCur(lstCur);
         return mem;
     }
-    public void restoreFromSave(Memento2 memento) throws CloneNotSupportedException {
+    public void restoreFromSave(Memento2 memento) {
         this.name=memento.getName();
         this.lstCur=memento.getLstCur();
     }
