@@ -38,47 +38,38 @@ public class Tests {
 //тесты для Части 2 (занятие 1)
     @Test
     public void testPart2_Undo() throws CloneNotSupportedException {
-        Caretaker caretaker = new Caretaker();
         Account acc2=new Account("Петров Петр Петрович");
-        caretaker.save(acc2.save("state 1"));
         System.out.println("State 1 (saved) = "+acc2);
         acc2.setCurrencyMap(Currency.RUR,100);
-        caretaker.save(acc2.save("state 2"));
         System.out.println("State 2 (saved) = "+acc2);
         acc2.setName("Иванов Василий Иванович");
-        caretaker.save(acc2.save("state 3"));
         System.out.println("State 3 (saved) = "+acc2);
         acc2.setCurrencyMap(Currency.RUR,300);
-        System.out.println("State 4 (unsaved) = "+acc2);
-        for (int i = 3; i > 0; i--) {
-            acc2.restoreFromSave(caretaker.undo());
-            System.out.println("State "+i+" (restored) = "+acc2);
-        }
-    }
-    @Test
-    public void testPart2_UndoException() throws CloneNotSupportedException {
-        Caretaker caretaker = new Caretaker();
-        Account acc2=new Account("Петров Петр Петрович");
-        caretaker.save(acc2.save("state 1"));
-        System.out.println("State 1 (saved) = "+acc2);
-        acc2.setCurrencyMap(Currency.RUR,100);
-        caretaker.save(acc2.save("state 2"));
-        System.out.println("State 2 (saved) = "+acc2);
-        acc2.setName("Иванов Василий Иванович");
-        caretaker.save(acc2.save("state 3"));
-        System.out.println("State 3 (saved) = "+acc2);
-        acc2.setCurrencyMap(Currency.RUR,300);
-        System.out.println("State 4 (unsaved) = "+acc2);
+        System.out.println("State 4 (saved) = "+acc2);
         for (int i = 4; i > 0; i--) {
-            acc2.restoreFromSave(caretaker.undo());
+            acc2.undo();
             System.out.println("State "+i+" (restored) = "+acc2);
         }
     }
     @Test
     public void testPart2_UndoExceptionEmptyStack() throws CloneNotSupportedException {
-        Caretaker caretaker = new Caretaker();
         Account acc2=new Account("Петров Петр Петрович");
-        acc2.restoreFromSave(caretaker.undo());
+        System.out.println("State 1 (saved) = "+acc2);
+        acc2.setCurrencyMap(Currency.RUR,100);
+        System.out.println("State 2 (saved) = "+acc2);
+        acc2.setName("Иванов Василий Иванович");
+        System.out.println("State 3 (saved) = "+acc2);
+        acc2.setCurrencyMap(Currency.RUR,300);
+        System.out.println("State 4 (unsaved) = "+acc2);
+        for (int i = 5; i > 0; i--) {
+            acc2.undo();
+            System.out.println("State "+i+" (restored) = "+acc2);
+        }
+    }
+    @Test
+    public void testPart2_UndoFirstAction() throws CloneNotSupportedException {
+        Account acc2=new Account("Петров Петр Петрович");
+        acc2.undo();
     }
 
     //тесты для Части 3 (занятие 1)
