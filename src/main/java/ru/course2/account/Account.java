@@ -5,8 +5,8 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Account { //Receiver
-    private final Deque<UndoAction> action=new ArrayDeque<>();
+public class Account implements Actions{
+    Deque<Actions> action=new ArrayDeque<>();
     private Caretaker caretaker=new Caretaker();
     private String name;
     private Map<Currency,Integer> lstCur = new HashMap<>();
@@ -25,6 +25,8 @@ public class Account { //Receiver
     }
     public void setName(String name) {
         this.name=name;
+        action.push(()->this.name=name);
+//        action.push(()->save());
         save();
     }
     public void setCurrencyMap(Currency cur, Integer saldo) throws IndexOutOfBoundsException {
@@ -33,10 +35,13 @@ public class Account { //Receiver
             throw new IndexOutOfBoundsException();
         }
         this.lstCur.put(cur,saldo);
+        action.push(()->this.lstCur.put(cur,saldo));
         save();
     }
     public Account(String name) {
         this.name=name;
+//        action.push(()->save());
+        action.push(()->this.name=name);
         save();
     }
     public Memento2 save(String state) {
@@ -59,15 +64,13 @@ public class Account { //Receiver
         Memento2 mem=caretaker.undo();
         this.name=mem.getName();
         this.lstCur=mem.getLstCur();
+        System.out.println("a'm here");
     }
 }
 enum Currency {
     RUR,EUR,USD;
 }
-
-class UndoAction {
-    Caretaker caretaker;
-    public void undo() {
-        caretaker.undo();
-    }
+@FunctionalInterface
+interface Actions {
+    public void undo();
 }

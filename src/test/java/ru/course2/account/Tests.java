@@ -48,8 +48,10 @@ public class Tests {
         System.out.println("State 4 (saved) = "+acc2);
         for (int i = 4; i > 0; i--) {
             acc2.undo();
+//            acc2.action.pop();
             System.out.println("State "+i+" (restored) = "+acc2);
         }
+        System.out.println("action Array = "+acc2.action.size());
     }
     @Test
     public void testPart2_UndoExceptionEmptyStack() throws CloneNotSupportedException {
