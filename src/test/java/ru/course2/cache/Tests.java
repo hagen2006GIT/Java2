@@ -19,6 +19,7 @@ public class Tests {
 // , если не было значимых изменений (т.е, если не выполнялся метод, отмеченный аннотацией @SetterMy)
         tc.setFlag(""); //инициализировал flag выполнения методов значением null
         aCached.method(); //первый не кэшированный запуск
+        aCached.method(); //второй, уже кэшированный запуск
         Assertions.assertEquals("method was launched", tc.getFlag());
         tc.setFlag(""); //инициализировал flag выполнения методов значением null
         aCached.method(); //второй, уже кэшированный запуск
