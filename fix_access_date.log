@@ -1,0 +1,11 @@
+ru.course2.spring1.MiddleCheckAccessDate
+старт операции: 27.12.2023 15:50:25
+модель ДО старта операции:{username='loginMock1', FIO='Смирнов Николай Петрович', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='decktop'}
+{username='loginMock2', FIO='Николаев Валентин Ильич', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='mobile'}
+{username='loginMock2', FIO='Куковицкий Иван Васильевич', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='web'}
+
+модель ПОСЛЕ обработки:{username='loginMock1', FIO='Смирнов Николай Петрович', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='decktop'}
+{username='loginMock2', FIO='Николаев Валентин Ильич', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='mobile'}
+{username='loginMock2', FIO='Куковицкий Иван Васильевич', access_date='Wed Dec 27 15:50:25 MSK 2023', appl_type='web'}
+
+
