@@ -2,7 +2,6 @@ package ru.course2.spring1;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +19,14 @@ public class Model {
         return str.toString();
     }
 }
-class ModelStructure {
-    @Getter @Setter private boolean dataOk; // если true, то вносим в БД, иначе только логирование
-    @Getter @Setter private String username; // логин
-    @Getter @Setter private String fioF; // фамилия
-    @Getter @Setter private String fioI; // имя
-    @Getter @Setter private String fioO; // отчетство
-    @Getter @Setter private Date access_date; //дата входа
-    @Getter @Setter private String appl_type; //тип приложения
+@Setter @Getter class ModelStructure {
+    private boolean dataOk; // если true, то вносим в БД, иначе только логирование
+    private String username; // логин
+    private String fioF; // фамилия
+    private String fioI; // имя
+    private String fioO; // отчетство
+    private Date access_date; //дата входа
+    private String appl_type; //тип приложения
 
     public String gerFullString() {
         return username
@@ -54,8 +53,7 @@ class ModelStructure {
         this.dataOk=true; // по умолчанию (до всех проверок) признак true. Если какая-то из проверок не проходит,
                         // то она ставит false, чтобы эта запись не добавилась в БД (только логирование в отдельный файл)
     }
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "{" +
                 "username='" + username + '\'' +
                 ", FIO='" + fioF + " " + fioI + " " + fioO+ '\'' +

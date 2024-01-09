@@ -34,11 +34,6 @@ public class H2DAO {
     public void postData(List<ModelStructure> mList,boolean clrTable) throws Exception {
         Statement statement=con.createStatement();
         ResultSet resultDML;
-        if(clrTable) { // по требованию почистим таблицы
-            statement.execute("DELETE FROM users");
-            statement.execute("DELETE FROM logins");
-            statement.execute("DROP SEQUENCE SEQID");
-        }
 // создание последовательности для IDшников
         statement.execute("CREATE SEQUENCE IF NOT EXISTS SEQID MINVALUE 158");
 // создание таблиц, если они ещё не существуют
@@ -57,6 +52,11 @@ public class H2DAO {
                 ",application varchar"+
                 ")"
         );
+        if(clrTable) { // по требованию почистим таблицы
+            statement.execute("DELETE FROM users");
+            statement.execute("DELETE FROM logins");
+//            statement.execute("DROP SEQUENCE SEQID");
+        }
 // заполняем таблицы данными из Model
         for (ModelStructure mod:mList) {
             if (mod.getAccess_date()!=null) {
@@ -71,7 +71,7 @@ public class H2DAO {
                 );
                 java.util.Date dateAccess=mod.getAccess_date();
                 statement.execute("INSERT into logins values"+
-                        "(SEQID.nextval"+
+                        "((select nextval('PUBLIC','SEQID'))"+
                         ",'"+new Timestamp(dateAccess.getTime())+"'"+
                         ",'"+seqID+"'"+
                         ",'"+mod.getAppl_type()+"'"+

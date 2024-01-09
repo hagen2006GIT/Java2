@@ -1,9 +1,7 @@
 package ru.course2.spring1;
 
 import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.stereotype.Component;
-
-import java.io.*;
+import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BinaryOperator;

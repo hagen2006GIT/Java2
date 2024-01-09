@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 // Data Transfer Object (DTO)
-public class Users {
-    @Setter @Getter private int id;
-    @Setter @Getter private String username;
-    @Setter @Getter private String fio;
+@Setter @Getter public class Users {
+    private int id;
+    private String username;
+    private String fio;
     public Users(int id,String name,String fio) {
         this.id=id;
         this.username=name;

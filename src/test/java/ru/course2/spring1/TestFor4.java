@@ -23,7 +23,7 @@ public class TestFor4 {
                 ,"Николай" // имя
                 ,"Петрович" // отчество
                 ,new java.util.Date() // дата входа
-                ,"decktop" // тип приложения
+                ,"desktop" // тип приложения
         ));
         modelMock.fLine.add(new ModelStructure("loginMock2" // username
                 ,"Николаев" // фамилия
@@ -45,7 +45,7 @@ public class TestFor4 {
 // testDataReaderInvoke() проверяет, что вызывается метод чтения данных с исходными данными
     @Test @DisplayName("reading mock testing") public void testDataReaderInvoke() {
         Model modelAfterRead;
-        DataReader dr=Mockito.mock(DataReader.class); // создал объект для заглушки
+        DataReader dr= Mockito.mock(DataReader.class); // создал объект для заглушки
         Mockito.when(dr.get()).thenReturn(fillMockModel());
         modelAfterRead=dr.get(); // имитация вызова метода чтения данных
         System.out.println("modelAfterRead:\n"+modelAfterRead);

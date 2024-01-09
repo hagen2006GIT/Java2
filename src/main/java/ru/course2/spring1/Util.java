@@ -1,6 +1,5 @@
 package ru.course2.spring1;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,7 +16,6 @@ import java.io.IOException;
         fWriter.write(logStr+"\n");
         fWriter.close();
     }
-
     public int testFilesGenerate() throws IOException {
         int filesGen=0;
         File file1=new File("./src/test/resources/testFile1.txt");

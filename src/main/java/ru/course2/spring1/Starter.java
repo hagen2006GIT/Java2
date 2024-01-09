@@ -7,6 +7,7 @@ public class Starter {
     public static void main(String[] args) throws Exception {
         Logger logger = LoggerFactory.getLogger(Starter.class);
         logger.info("Hello World");
+
 //        Util.testFilesGenerate();
 //        var context=new AnnotationConfigApplicationContext("ru.course2.spring1");
 //        context.getBean("operationMaker",OperationMaker.class).make();
